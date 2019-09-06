@@ -14,8 +14,8 @@ from tensorflow.keras.layers import Dense, Dropout, Flatten
 from tensorflow.keras.layers import Conv2D, MaxPooling2D
 
 # Constants
-BATCH_SIZE = 100
-EPOCHS = 100
+BATCH_SIZE = 50
+EPOCHS = 20
 CLASSES = 100
 IMAGE_SIZE = 32
 
@@ -24,13 +24,7 @@ IMAGE_SIZE = 32
 print("Number of training samples: ", len(train_data))
 print("Number of testing samples: ", len(test_data))
 
-train_data_generator = ImageDataGenerator(rescale=1./255,rotation_range=40,
-                                            width_shift_range=0.2,
-                                            height_shift_range=0.2,
-                                            shear_range=0.2,
-                                            zoom_range=0.2,
-                                            horizontal_flip=True,
-                                            fill_mode='nearest')
+train_data_generator = ImageDataGenerator(rescale=1./255)
 test_data_generator = ImageDataGenerator(rescale=1./255)
 
 train_labels = tf.keras.utils.to_categorical(train_labels, CLASSES)
@@ -44,27 +38,23 @@ test_data_gen = test_data_generator.flow(x=test_data, y=test_labels,
 print("Setting up layers")
 # Setup the layers
 model = Sequential([
-    Conv2D(128, (3,3), activation='elu', padding='same', input_shape=(32,32,3)),
+    Conv2D(32, (3,3), activation='relu', padding='same', input_shape=(32,32,3)),
     MaxPooling2D(2, 2),
 
-    Conv2D(128, (3,3), activation='elu', padding='same'),
+    Conv2D(64, (3,3), activation='relu', padding='same'),
     MaxPooling2D(2,2),
 
-    Conv2D(256, (3,3), activation='elu', padding='same'),
+    Conv2D(128, (3,3), activation='relu', padding='same'),
     MaxPooling2D(2,2),
-
-    Conv2D(256, (3,3), activation='elu', padding='same'),
-    MaxPooling2D(2,2),
-
 
     Flatten(),
-    Dense(128, activation='elu'),
+    Dense(128, activation='relu'),
     Dropout(0.25),
-    Dense(256, activation='elu'),
+    Dense(256, activation='relu'),
     Dropout(0.25),
-    Dense(512, activation='elu'),
+    Dense(512, activation='relu'),
     Dropout(0.25),
-    Dense(1024, activation='elu'),
+    Dense(1024, activation='relu'),
     Dropout(0.25),
     Dense(CLASSES, activation='softmax')
 ])

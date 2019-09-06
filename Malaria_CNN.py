@@ -12,8 +12,8 @@ from tensorflow.keras.layers import Dense, Dropout, Flatten
 from tensorflow.keras.layers import Conv2D, MaxPooling2D
 
 # Constants
-BATCH_SIZE = 100
-EPOCHS = 10
+BATCH_SIZE = 50
+EPOCHS = 20
 CLASSES = 2
 IMAGE_SIZE = 32
 

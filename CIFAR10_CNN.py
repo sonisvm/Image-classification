@@ -12,8 +12,8 @@ from tensorflow.keras.layers import Conv2D, MaxPooling2D
 from skimage.transform import resize
 
 # Constants
-BATCH_SIZE = 100
-EPOCHS = 30
+BATCH_SIZE = 50
+EPOCHS = 20
 CLASSES = 10
 
 # Get the data
@@ -32,16 +32,13 @@ test_data_gen = test_data_generator.flow(x=test_data, y=test_labels,
 print("Setting up layers")
 # Setup the layers
 model = Sequential([
-    Conv2D(64, (3,3), activation='relu', padding='same', input_shape=(32,32,3)),
+    Conv2D(32, (3,3), activation='relu', padding='same', input_shape=(32,32,3)),
     MaxPooling2D(2, 2),
 
+    Conv2D(64, (3,3), activation='relu', padding='same'),
+    MaxPooling2D(2,2),
+
     Conv2D(128, (3,3), activation='relu', padding='same'),
-    MaxPooling2D(2,2),
-
-    Conv2D(256, (3,3), activation='relu', padding='same'),
-    MaxPooling2D(2,2),
-
-    Conv2D(512, (3,3), activation='relu', padding='same'),
     MaxPooling2D(2,2),
 
     Flatten(),

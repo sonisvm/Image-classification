@@ -7,7 +7,7 @@ from tensorflow.keras.models import load_model
 
 IMAGE_SIZE = 32
 
-model = load_model("cifar100_model.h5")
+model = load_model("svhn_model.h5")
 
 outliers_dir = os.listdir("./Outliers")
 
